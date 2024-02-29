@@ -1,12 +1,77 @@
 ﻿<!DOCTYPE html>
 
-<html>
+<html lang="en">
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <link href='https://fonts.googleapis.com/css?family=Work+Sans' rel='stylesheet' type='text/css'>
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.js"></script>
+    <link href="~/css/site.css" rel="stylesheet" />
+    <base href="/" />
 </head>
 <body>
-    <div>
+    <div class="container">
+        <header>
+            <nav class="nnavbar-expand-lg navbar-dark fixed-top bg-primary" aria-label="Skyrim Quest Log navigation header">
+                <div class="container-xl">
+                    <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                        <img src="images/SkyrimLogo.png" width="151" height="47" class="d-inline-block align-top mb-2 mt-1"
+                             alt="Skyrim quest log Logo">
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle"
+                                   data-toggle="dropdown"
+                                   href="#"
+                                   role="button"
+                                   data-bs-toggle="dropdown"
+                                   id="nav-dropdown"
+                                   aria-expanded="false">
+                                    Quests
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="nav-dropdown">
+                                    <li>
+                                        <a asp-controller="Quest" asp-action="Index" class="dropdown-item">
+                                            View all quests
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Quest" asp-action="IndexPaging" class="dropdown-item">
+                                            View all quests paged
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Quest" asp-action="IndexPagingSorting" class="dropdown-item">
+                                            View all quests paged and sorted
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Quest" asp-action="Search" class="dropdown-item">
+                                            Search quest
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Quest" asp-action="Add" class="dropdown-item">
+                                            Add quest
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
         @RenderBody()
     </div>
 </body>

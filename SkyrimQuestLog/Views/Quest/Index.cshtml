@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Quest> 
+
+
+@foreach(var quest in Model)
+{
+    <tr>
+        <td>@quest.QuestId</td>
+        <td>@quest.QuestName</td>
+        <td>@quest.QuestDescription</td>
+        <td>
+            <a asp-action="Details" asp-route-id="@quest.QuestId">Details</a>
+            <a asp-action="Edit" asp-route-id="@quest.QuestId">Edit</a>
+            <a asp-action="Delete" asp-route-id="@quest.QuestId">Delete</a>
+        </td>
+    </tr>
+}
