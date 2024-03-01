@@ -1,4 +1,5 @@
 ﻿using SkyrimQuestLog.Models;
+using SkyrimQuestLog.ViewModels;
 
 namespace SkyrimQuestLog.Repositories
 {
@@ -10,5 +11,7 @@ namespace SkyrimQuestLog.Repositories
         Task<IEnumerable<Quest>> SearchQuests(string searchQuery);
         Task<IEnumerable<Quest>> GetQuestsPagedAsync(int pageNumber, int pageSize);
         Task<int> AddQuestAsync(Quest quest);
+        Task<int> DeleteAppointmentAsync(int id);
+        Task<int> UpdateQuest(QuestAddViewModel questAddViewModel);
     }
 }

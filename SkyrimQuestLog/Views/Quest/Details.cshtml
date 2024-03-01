@@ -1,1 +1,22 @@
-﻿
+﻿@model Quest
+
+<h3 class="my-5">
+    @Model.QuestName
+</h3>
+
+<div class="row gx-5">
+    <img alt="@Model.QuestName" src="images/test.jpg" class="img-fluid col-5" />
+    <div class="col-7">
+        <h4>@Model.QuestName</h4>
+        <p>@Model.QuestDescription</p>
+        <h3 class="pull-right">@Model.Walkthrough</h3>
+        <div class="addToCart">
+            <p class="button">
+                <a class="btn btn-secondary"
+                   asp-controller="Quest"
+                   asp-action="Index"
+                   asp-route-Id="@Model.QuestId">Back</a>
+            </p>
+        </div>
+    </div>
+</div>

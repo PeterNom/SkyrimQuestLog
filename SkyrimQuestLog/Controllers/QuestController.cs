@@ -82,5 +82,85 @@ namespace SkyrimQuestLog.Controllers
 
             return View(questAddViewModel);
         }
+    
+        public async Task<IActionResult> Delete(int id)
+        {
+            var quest = await _questRepository.GetQuestById(id);
+
+            return View(quest);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int? id)
+        {
+            if(id == null)
+            {
+                ViewData["ErrorMessage"] = "Deleting the quest failed, invalid id.";
+                return View();
+            }
+
+            try
+            {
+                await _questRepository.DeleteAppointmentAsync(id.Value);
+                TempData["QuestDeleted"] = "Quest deleted successfully!";
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = $"Deleting the quest failed, please try again! Error: {ex.Message}";
+            }
+
+            var quest = await _questRepository.GetQuestById(id.Value);
+
+            return View(quest);
+        }
+    
+        public async Task<IActionResult> Update(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var quest = await _questRepository.GetQuestById(id.Value);
+
+            var questModel = new QuestAddViewModel() { Quest= quest };
+
+            return View(questModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(QuestAddViewModel questAddViewModel)
+        {
+            var questToUpdate = _questRepository.GetQuestById(questAddViewModel.Quest.QuestId);
+
+            try
+            {
+                if(questToUpdate == null)
+                {
+                    ModelState.AddModelError(string.Empty, "The quest you want to update doesn't exist or was already deleted by someone else.");
+                }
+                if(ModelState.IsValid)
+                {
+                    await _questRepository.UpdateQuest(questAddViewModel);
+
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"Updating the quest failed, please try again! Error: {ex.Message}");
+            }
+
+            return View(questAddViewModel);
+        }
+
+        public IActionResult Search()
+        {
+            return View();
+        }
     }
 }

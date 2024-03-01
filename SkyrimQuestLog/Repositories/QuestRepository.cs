@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SkyrimQuestLog.Data;
 using SkyrimQuestLog.Models;
+using SkyrimQuestLog.ViewModels;
 
 namespace SkyrimQuestLog.Repositories
 {
@@ -57,5 +58,54 @@ namespace SkyrimQuestLog.Repositories
             _skyrimQuestLogDb.Quests.Add(quest);
             return await _skyrimQuestLogDb.SaveChangesAsync();
         }
+
+        public async Task<int> DeleteAppointmentAsync(int id)
+        {
+            var quest = await _skyrimQuestLogDb.Quests.FirstOrDefaultAsync(q => q.QuestId == id);
+
+            if(quest != null)
+            {
+                _skyrimQuestLogDb.Quests.Remove(quest);
+                return await _skyrimQuestLogDb.SaveChangesAsync();
+            }
+            else
+            {
+                throw new ArgumentException($"The quest to delete could not be found");
+            }
+        }
+
+        public async Task<int> UpdateQuest(QuestAddViewModel questAddViewModel)
+        {
+            var questToUpdate = await _skyrimQuestLogDb.Quests.FirstOrDefaultAsync(q => q.QuestId == questAddViewModel.Quest.QuestId);
+
+            if(questToUpdate != null)
+            {
+                questToUpdate.QuestName = questAddViewModel.Quest.QuestName;
+                questToUpdate.QuestId = questAddViewModel.Quest.QuestId;
+                questToUpdate.Walkthrough = questAddViewModel.Quest.Walkthrough;
+                questToUpdate.Reward = questAddViewModel.Quest.Reward;
+                questToUpdate.QuestDescription = questAddViewModel.Quest.QuestDescription;
+                questToUpdate.IsCompleted = questAddViewModel.Quest.IsCompleted;
+
+                questToUpdate.Cities = questAddViewModel.Quest.Cities;
+                questToUpdate.Faction = questAddViewModel.Quest.Faction;
+                questToUpdate.Settlements = questAddViewModel.Quest.Settlements;
+                questToUpdate.OrcStringholds = questAddViewModel.Quest.OrcStringholds;
+
+                questToUpdate.Main = questAddViewModel.Quest.Main;
+                questToUpdate.Mischellaneous = questAddViewModel.Quest.Mischellaneous;
+                questToUpdate.Other = questAddViewModel.Quest.Other;
+                questToUpdate.Towns = questAddViewModel.Quest.Towns;
+
+                _skyrimQuestLogDb.Quests.Update(questToUpdate);
+                return await _skyrimQuestLogDb.SaveChangesAsync();
+            }
+            else
+            {
+                throw new ArgumentException($"The quest you try to update doesn't seem to exist.");
+            }
+        }
+    
+        
     }
 }

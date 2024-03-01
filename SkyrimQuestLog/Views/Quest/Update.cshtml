@@ -1,0 +1,72 @@
+﻿@model QuestAddViewModel
+
+<form method="post" asp-controller="Quest" asp-action="Update" name="updateQuest">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input type="hidden" asp-for="Quest.QuestId" />
+    <div class="mb-3">
+        <label asp-for="Quest.QuestName" class="form-label"></label>
+        <input asp-for="Quest.QuestName" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Quest.QuestDescription" class="form-label"></label>
+        <textarea asp-for="Quest.QuestDescription" class="form-control" rows="5" cols="50" style="resize: none;"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Quest.Reward" class="form-label"></label>
+        <input asp-for="Quest.Reward" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Quest.Walkthrough" class="form-label"></label>
+        <input asp-for="Quest.Walkthrough" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Quest.IsCompleted" class="form-label"></label>
+        <input type="checkbox" asp-for="Quest.IsCompleted" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Quest.Faction" class="form-label"></label>
+        <select asp-for="Quest.Faction" asp-items="Html.GetEnumSelectList<Faction>()"></select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Quest.Main" class="form-label"></label>
+        <select asp-for="Quest.Main" asp-items="Html.GetEnumSelectList<Main>()"></select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Quest.Mischellaneous" class="form-label"></label>
+        <select asp-for="Quest.Mischellaneous" asp-items="Html.GetEnumSelectList<Mischellaneous>()"></select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Quest.Other" class="form-label"></label>
+        <select asp-for="Quest.Other" asp-items="Html.GetEnumSelectList<Other>()"></select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Quest.Cities" class="form-label"></label>
+        <select asp-for="Quest.Cities" asp-items="Html.GetEnumSelectList<City>()"></select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Quest.Towns" class="form-label"></label>
+        <select asp-for="Quest.Towns" asp-items="Html.GetEnumSelectList<Town>()"></select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Quest.Settlements" class="form-label"></label>
+        <select asp-for="Quest.Settlements" asp-items="Html.GetEnumSelectList<Settlement>()"></select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Quest.OrcStringholds" class="form-label"></label>
+        <select asp-for="Quest.OrcStringholds" asp-items="Html.GetEnumSelectList<OrcStringhold>()"></select>
+    </div>
+
+    <input type="submit" value="Update quest" class="btn btn-primary" />
+</form>
